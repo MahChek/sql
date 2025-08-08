@@ -103,15 +103,17 @@ of customers for them to give stickers to, sorted by last name, then first name.
 
 HINT: This query requires you to join two tables, use an aggregate function, and use the HAVING keyword. */
 
-SELECT cp.customer_id,c.customer_first_name, 
-c.customer_last_name,
+SELECT cp.customer_id,c.customer_first_name, c.customer_last_name,
 SUM (cost_to_customer_per_qty*quantity) AS total_purchase
 
 FROM customer_purchases cp
 INNER JOIN customer c
 ON c.customer_id=cp.customer_id
-group by customer_last_name, customer_first_name
+group by  customer_last_name, customer_first_name,cp.customer_id
 Having total_purchase >=2000
+
+ORDER by customer_last_name, customer_first_name
+
 
 --Temp Table
 /* 1. Insert the original vendor table into a temp.new_vendor and then add a 10th vendor: 
