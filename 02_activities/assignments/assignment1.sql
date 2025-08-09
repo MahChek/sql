@@ -11,7 +11,6 @@ SELECT * FROM customer
 sorted by customer_last_name, then customer_first_ name. */
 SELECT * FROM customer
 ORDER By customer_last_name, customer_first_name
-ORDER By customer_last_name, customer_first_name
 LIMIT 10
 
 
@@ -79,7 +78,7 @@ FROM product
 /* 1. Write a query that INNER JOINs the vendor table to the vendor_booth_assignments table on the 
 vendor_id field they both have in common, and sorts the result by vendor_name, then market_date. */
 
-SELECT vendor.vendor_name,vendor_booth_assignments.market_date, vendor.vendor_id
+SELECT *
 FROM vendor
 INNER JOIN vendor_booth_assignments
 ON vendor.vendor_id=vendor_booth_assignments.vendor_id
@@ -103,16 +102,13 @@ of customers for them to give stickers to, sorted by last name, then first name.
 
 HINT: This query requires you to join two tables, use an aggregate function, and use the HAVING keyword. */
 
-SELECT cp.customer_id,c.customer_first_name, c.customer_last_name,
-SUM (cost_to_customer_per_qty*quantity) AS total_purchase
-
-FROM customer_purchases cp
-INNER JOIN customer c
+SELECT c.customer_last_name, c.customer_first_name
+From customer_purchases as cp
+inner join customer as c
 ON c.customer_id=cp.customer_id
-group by  customer_last_name, customer_first_name,cp.customer_id
-Having total_purchase >=2000
-
-ORDER by customer_last_name, customer_first_name
+group by c.customer_id
+Having SUM (cost_to_customer_per_qty*quantity) >=2000
+order by c.customer_last_name, c.customer_first_name
 
 
 --Temp Table
@@ -132,7 +128,7 @@ CREATE TABLE temp.new_vendor AS
 SELECT *
 FROM vendor;
 INSERT INTO temp.new_vendor (vendor_id, vendor_name, vendor_type, vendor_owner_first_name, vendor_owner_last_name) 
-values ('10','Thomass Superfood Store', 'a Fresh Focused store', 'Thomas', 'Rosenthal')
+values ('10','Thomas Superfood Store', 'a Fresh Focused store', 'Thomas', 'Rosenthal')
 
 -- Date
 /*1. Get the customer_id, month, and year (in separate columns) of every purchase in the customer_purchases table.
