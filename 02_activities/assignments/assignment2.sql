@@ -42,7 +42,7 @@ each new market date for each customer, or select only the unique market dates p
 (without purchase details) and number those visits. 
 HINT: One of these approaches uses ROW_NUMBER() and one uses DENSE_RANK(). */
 
-Select 	market_date,customer_id,
+Select 	*,
 		row_number () over (PARTITION BY customer_id order by market_date) as customer_visit_rank
 FROM (SELECT DISTINCT customer_id, market_date
 	FROM customer_purchases)x
@@ -53,7 +53,7 @@ ORDER BY customer_id, market_date, customer_visit_rank;
 then write another query that uses this one as a subquery (or temp table) and filters the results to 
 only the customer’s most recent visit. */
 
-Select market_date, customer_id, customer_visit_rank
+Select *
 	From (
 		Select 	market_date,
 			customer_id,
@@ -66,7 +66,7 @@ Select market_date, customer_id, customer_visit_rank
 
 /* 3. Using a COUNT() window function, include a value along with each row of the 
 customer_purchases table that indicates how many different times that customer has purchased that product_id. */
-SELECT 	customer_id, product_id, 
+SELECT 	*, 
 	count (*) over( PARTITION by product_id, customer_id) as purchase_count
 FROM customer_purchases;
 
@@ -93,9 +93,7 @@ FROM product;
 
 /* 2. Filter the query to show any product_size value that contain a number with REGEXP. */
 
-SELECT * 
-FROM product 
-WHERE REGEXP_LIKE(product_size, '[0-9]');
+
 
 -- UNION
 /* 1. Using a UNION, write a query that displays the market dates with the highest and lowest total sales.
