@@ -67,8 +67,9 @@ Select *
 /* 3. Using a COUNT() window function, include a value along with each row of the 
 customer_purchases table that indicates how many different times that customer has purchased that product_id. */
 SELECT 	*, 
-	count (*) over( PARTITION by product_id, customer_id) as purchase_count
+	count (product_id) over( PARTITION by product_id, customer_id) as purchase_count
 FROM customer_purchases;
+
 
 
 -- String manipulations
