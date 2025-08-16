@@ -26,9 +26,9 @@ FROM product
 WHERE product_name IS NULL
    OR product_size IS NULL
    OR product_qty_type IS NULL;
-   ------MAHSHID: SInce the Nulls were in product_name and product_qty_type, we only change them and not the product_siz
+   
 SELECT 
-coalesce (product_name, '') || ', ' ||  product_size|| ' (' || coalesce (product_qty_type, 'unit') || ')'
+coalesce (product_name, '') || ', ' ||  coalesce (product_size, '') || ' (' || coalesce (product_qty_type, 'unit') || ')'
 FROM product;
 
 
