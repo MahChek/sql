@@ -1,0 +1,21 @@
+
+--CUSTOMER_ADDRESS Type 1 to  overwrite changes (customer_id as PK)
+customer_id
+street
+city
+province
+country
+postal code
+
+
+--CUSTOMER_ADDRESS Type 2 to keep track of address changes and history (address_id as PK)
+address_id 
+customer_id
+street
+city
+province
+country
+postal code
+address_start_date
+address_end_date
+
