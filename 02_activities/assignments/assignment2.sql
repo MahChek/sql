@@ -28,7 +28,7 @@ WHERE product_name IS NULL
    OR product_qty_type IS NULL;
    
 SELECT 
-coalesce (product_name, '') || ', ' ||  coalesce (product_size, '') || ' (' || coalesce (product_qty_type, 'unit') || ')'
+coalesce (product_name, '') || ', ' || coalesce (product_size, '') || ' (' || coalesce (product_qty_type, 'unit') || ')'
 FROM product;
 
 
@@ -68,8 +68,7 @@ Select *
 customer_purchases table that indicates how many different times that customer has purchased that product_id. */
 SELECT 	*, 
 	count (product_id) over( PARTITION by product_id, customer_id) as purchase_count
-FROM customer_purchases;
-
+FROM cust
 
 
 -- String manipulations
